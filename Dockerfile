@@ -29,7 +29,7 @@ RUN cd ~ && \
     cd  dlib/ && \
     python3 setup.py install --yes USE_AVX_INSTRUCTIONS
 
-COPY . /app/
+COPY . /app
 WORKDIR /app
 RUN pip3 install -r requirements.txt && \
     python3 setup.py install
