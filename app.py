@@ -89,12 +89,14 @@ def match():
         unknown_image = face_recognition.load_image_file(filename)
 
         known_images = []
-        for person in people_ref.stream():
+        files = []
+        for person in people_ref.get().to_dict():
             img_data = base64.b64decode(person['base64'])
             filename = person['name'] + '.jpg'
             with open(filename, 'wb') as f:
                 f.write(img_data)
             known_images.append(face_recognition.load_image_file(filename))
+            files.append(filename)
 
         known_encodings = []
         try:
@@ -109,7 +111,7 @@ def match():
         i = 0
         for r in results:
             if r == True:
-                return jsonify({"name": get_known_faces()[i][:-4]}), 200
+                return jsonify({"name": files[i][:-4]}), 200
             i += 1
         if True not in results:
             return jsonify({"name": "Unknown"}), 200
