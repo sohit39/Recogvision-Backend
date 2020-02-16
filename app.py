@@ -55,7 +55,7 @@ def update():
         e.g. json={'id': '1', 'title': 'Write a blog post today'}
     """
     try:
-        id = request.json['id']
+        id = request.json['name']
         people_ref.document(id).update(request.json)
         return jsonify({"success": True}), 200
     except Exception as e:
